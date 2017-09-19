@@ -29,20 +29,16 @@ class Order
   def generate_json
     client.orderbook(level: 2) do |resp|
       self.orders = resp[order_key]
-      if best_order
-        return best_order
-      else
-        return average_order
-      end
     end
+    best_order || average_order
   end
 
   def best_order
     best_order = orders.find{ |order| order[1].to_f == amount.to_f }
     if best_order
       {
-        total: best_order[0].to_f * best_order[1].to_f,
-        price: best_order[0],
+        total: (best_order[0].to_f * best_order[1].to_f).to_s,
+        price: best_order[0].to_s,
         currency: quote_currency
       }.to_json
     end
@@ -65,8 +61,8 @@ class Order
     end
     average_price = suitable_orders.reduce(0){ |sum, order| sum + (order[0].to_f * order[1].to_f) } / amount
     {
-      total: average_price * amount,
-      price: average_price,
+      total: (average_price * amount).to_s,
+      price: average_price.to_s,
       currency: quote_currency
     }.to_json
   end

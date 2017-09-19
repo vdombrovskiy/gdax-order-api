@@ -12,7 +12,8 @@ class Server < Sinatra::Base
   end
 
   post '/' do
-
+    body_params = JSON.parse(request.body.read)
+    params.merge!(body_params)
     param :action, String, required: true, in: Order::VALID_ACTIONS
     param :base_currency, String, required: true, in: Order::VALID_CURRENCIES
     param :quote_currency, String, required: true, in: Order::VALID_CURRENCIES
