@@ -10,9 +10,15 @@ bundle install
 ruby server.rb
 ```
 
-Example of request using curl:
+Examples of requests using curl:
+1) for 'sell' order:
 ```sh
 curl -d '{"action":"sell", "base_currency": "BTC", "quote_currency": "USD", "amount": "2.15"}' -H "Content-Type: application/json" -X POST http://localhost:4567
+```
+
+2) for 'buy' order:
+```sh
+curl -d '{"action":"buy", "base_currency": "BTC", "quote_currency": "USD", "amount": "2.15"}' -H "Content-Type: application/json" -X POST http://localhost:4567
 ```
 
 Example of response:
