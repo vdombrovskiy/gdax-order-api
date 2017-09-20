@@ -1,5 +1,6 @@
 require 'coinbase/exchange'
 require 'json'
+require_relative 'constants'
 
 class Order
 
@@ -21,9 +22,9 @@ class Order
   end
 
   def client
-  	@client ||= Coinbase::Exchange::Client.new('2uCwwiqMwT2sqscB',
-  	 																					 'o8ICB58gZUJR6d9d7hu7sFTBeqHgg5VQ',
-  	 																					 product_id: "#{base_currency}-#{quote_currency}")
+    @client ||= Coinbase::Exchange::Client.new(API_KEY,
+                                               API_SECRET,
+                                               product_id: "#{base_currency}-#{quote_currency}")
   end
 
   def generate_json
